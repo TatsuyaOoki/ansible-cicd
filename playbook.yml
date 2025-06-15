@@ -1,0 +1,12 @@
+---
+- name: Setup Web Server
+  hosts: web_servers
+  become: true
+  pre_tasks:
+    - name: Check Distribution
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution in ["Amazon", "RedHat"]
+  roles:
+    - setting_hostname
+    - setting_apache

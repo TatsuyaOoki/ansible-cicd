@@ -1,0 +1,3 @@
+---
+- name: Execution setteing_hostname tasks
+  ansible.builtin.include_tasks: setting_hostname.yml

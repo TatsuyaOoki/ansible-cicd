@@ -1,0 +1,22 @@
+ServerRoot "/etc/httpd"
+Listen "{{ setting_apache_listen_port }}"
+
+ServerName "{{ inventory_hostname }}"
+
+DocumentRoot "{{ setting_apache_document_root }}"
+<Directory "{{ setting_apache_document_root }}">
+    AllowOverride None
+    Require all granted
+</Directory>
+
+# Setting Log
+ErrorLog "logs/error_log"
+LogLevel warn
+CustomLog "logs/access_log" combined
+
+# MIME types
+TypesConfig /etc/mime.types
+
+# Include
+IncludeOptional conf.modules.d/*.conf
+IncludeOptional conf.d/*.conf

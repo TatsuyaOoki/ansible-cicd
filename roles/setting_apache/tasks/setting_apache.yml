@@ -1,0 +1,30 @@
+---
+- name: Install httpd
+  ansible.builtin.dnf:
+    name: "{{ setting_apache_packages }}"
+    state: present
+    update_cache: true
+
+- name: Setup httpd config file
+  ansible.builtin.template:
+    src: "httpd.conf.j2"
+    dest: "/etc/httpd/conf/httpd.conf"
+    group: "apache"
+    owner: "apache"
+    mode: "0644"
+    backup: true
+  notify: Restart httpd
+
+- name: Copy HTML file
+  ansible.builtin.copy:
+    src: "html/index.html"
+    dest: "{{ setteing_apache_document_root }}/index.html"
+    group: "apache"
+    owner: "apache"
+    mode: "0644"
+
+- name: Start httpd
+  ansible.builtin.systemd_service:
+    name: httpd.service
+    state: started
+    enabled: true

@@ -1,0 +1,3 @@
+---
+setting_apache_listen_port: 80
+setting_apache_document_root: "/var/www/html"
