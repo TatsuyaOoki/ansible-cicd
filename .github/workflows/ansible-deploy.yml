@@ -43,6 +43,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+      - name: Set known_hosts from secret
+        run: |
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
       - name: Setup Vault Password File
         run: |
           echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ~/.vault_pass.txt
